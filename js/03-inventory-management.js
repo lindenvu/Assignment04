@@ -64,6 +64,8 @@ function update(arrInventory) {
     while (true) {
         prompt1 = window.prompt("Enter a SKU");
         sku = parseInt(prompt1, 10);
+        window.alert(sku);
+        window.alert(sku === 2233 || sku === 3223 || sku === 4824 || sku === 6343 || sku === 9382);
         if (sku === 2233 || sku === 3223 || sku === 4824 || sku === 6343 || sku === 9382) {
             break;
         } else { window.alert("You entered " + prompt1 + " an invalid SKU, please try again..."); }
@@ -71,6 +73,8 @@ function update(arrInventory) {
     while (true) {
         prompt2  = window.prompt("Enter new stock quantity");
         quantity  = parseInt(prompt2, 10);
+        window.alert(quantity);
+        window.alert(isNaN(quantity));
         if (isNaN(quantity)) {
             window.alert("You entered " + prompt2 + " an invalid quantity, please try again...");
         } else { break; }
@@ -81,7 +85,11 @@ function update(arrInventory) {
         }
     }
     window.localStorage.removeItem("inventoryStorage");
+    window.alert("checking storage is cleared: " + window.localStorage.getItem("inventoryStorage"));
+    view(arrInventory);
+    window.alert(arrToString(arrInventory));
     window.localStorage.setItem("inventoryStorage", arrToString(arrInventory));
+    window.alert("Checking updated local storage: " + window.localStorage.getItem("inventoryStorage"));
     window.console.log("Inventory has been updated...");
     return arrInventory;
 }
@@ -101,10 +109,17 @@ function main() {
     "use strict";
     var inventory = [], command;
     display_menu();
+    window.alert("Checking local storage :" + localStorage.getItem("inventoryStorage"));
     if (localStorage.getItem("inventoryStorage") === null) {
         inventory = stringToArray("2233,Hat,12,14.99,3223,Socks,36,9.99,4824,Shirt,10,15.99,6343,Jeans,22,39.99,9382,Jacket,5,49.99");
+        view(inventory);
+        window.alert("Setting inventory variable to default inventory: " + arrToString(inventory));
+        localStorage.setItem("inventoryStorage", arrToString(inventory));
+        window.alert("Checking local storage set to default inventory :" + localStorage.getItem("inventoryStorage"));
     } else {
         inventory = stringToArray(localStorage.getItem("inventoryStorage"));
+        view(inventory);
+        window.alert("Set inventory variable to local storage cache" + arrToString(inventory));
     }
     
     while (true) {
@@ -125,5 +140,6 @@ function main() {
         }
     }
 }
+
 
 main();
