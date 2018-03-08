@@ -10,8 +10,8 @@ function display_menu() {
     window.console.log("exit - Exit the program");
     window.console.log("");
 }
-
-function stringToArray(myString) {
+/*
+function strToArray(myString) {
     "use strict";
     var myArray = [],  myArray2 = [], item1 = [], item2 = [], item3 = [], item4 = [], item5 = [];
     myArray = myString.split(",");
@@ -36,6 +36,22 @@ function stringToArray(myString) {
     item5["quantity"] = parseInt(myArray[18], 10);
     item5["cost"] = parseFloat(myArray[19]);
     myArray2 = [item1, item2, item3, item4, item5]
+    return myArray2;
+}
+*/
+function strToArray(myString) {
+    "use strict";
+    var myArray = [],  myArray2 = [], i, x = 0;
+    myArray = myString.split(",");
+    for (i = 0; i < myArray.length; i += 4) {
+        var item1 = [];
+        item1["sku"] = parseInt(myArray[i], 10);
+        item1["product"] = myArray[i + 1];
+        item1["quantity"] = parseInt(myArray[i + 2], 10);
+        item1["cost"] = parseFloat(myArray[i + 3]);
+        myArray2[x] = item1;
+        x += 1;
+    }
     return myArray2;
 }
 
@@ -111,13 +127,13 @@ function main() {
     display_menu();
     window.alert("Checking local storage :" + localStorage.getItem("inventoryStorage"));
     if (localStorage.getItem("inventoryStorage") === null) {
-        inventory = stringToArray("2233,Hat,12,14.99,3223,Socks,36,9.99,4824,Shirt,10,15.99,6343,Jeans,22,39.99,9382,Jacket,5,49.99");
+        inventory = strToArray("2233,Hat,12,14.99,3223,Socks,36,9.99,4824,Shirt,10,15.99,6343,Jeans,22,39.99,9382,Jacket,5,49.99");
         view(inventory);
         window.alert("Setting inventory variable to default inventory: " + arrToString(inventory));
         localStorage.setItem("inventoryStorage", arrToString(inventory));
         window.alert("Checking local storage set to default inventory :" + localStorage.getItem("inventoryStorage"));
     } else {
-        inventory = stringToArray(localStorage.getItem("inventoryStorage"));
+        inventory = strToArray(localStorage.getItem("inventoryStorage"));
         view(inventory);
         window.alert("Set inventory variable to local storage cache" + arrToString(inventory));
     }
